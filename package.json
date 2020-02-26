@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "watch":  "nodemon bot.js"
   },
   "keywords": [
     "heroku",
@@ -22,5 +23,8 @@
     "discord.js": "^11.5.0",
     "dotenv": "^8.0.0",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
