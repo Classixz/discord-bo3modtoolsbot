@@ -1,15 +1,16 @@
 require('console-stamp')(console, 'yyyy-mm-dd HH:MM:ss.l');
 require('dotenv').config();
 
-const commands = require('./app/commands');
-
-// Load up the discord.js library
 const Discord = require("discord.js");
+const dayjs = require('dayjs');
+
+const commands = require('./app/commands');
 const client = new Discord.Client();
 
 class Bot {
     constructor() {
         this.prefix = process.env.BOT_PREFIX;
+        this.startTime = dayjs();
         this.start()
     }
 
