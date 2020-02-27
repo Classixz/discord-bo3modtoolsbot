@@ -1,0 +1,98 @@
+[
+  {
+    "message_snowflake": "682660066528460835",
+    "channel_snowflake": "682256527997796395",
+    "color": "#ff6a00",
+    "title": "Server Ranks",
+    "description": "If you want a YouTuber, Mapper, Scripter rank or another rank, PM any member of the staff team to request the rank.",
+    "author": {
+      "name": "Want to get a rank?",
+      "icon": "https://img.icons8.com/cotton/64/000000/info.png"
+    },
+    "fields": [
+      {
+        "title": "Requirements for YouTubers/Streamers", 
+        "value": "Have a minimum of 5k+ Subscribers"
+      },
+      {
+        "title": "Mappers", 
+        "value": "Have a map publicly released for Black Ops 3 that is not a box map and must also have decent knowledge in <:radiant:230728887875796992>."
+      },
+      {
+        "title": "Scripters", 
+        "value": "Have decent knowledge in the GSC language."
+      },
+      {
+        "title": "Nitro", 
+        "value": "By boosting the server you will automatically be assigned the nitro rank. More information about Nitro boost can be found here: http://dis.gd/boost"
+      },
+      {
+        "title": "Please note", 
+        "value": "For every rank except nitro we will require some sort of proof."
+      }
+    ]
+  },
+  {
+    "message_snowflake": "682660074967007242",
+    "channel_snowflake": "682256527997796395",
+    "color": "#ff6a00",
+    "title": "Downloading Mods and Maps",
+    "description": "http://steamcommunity.com/sharedfiles/filedetails/?id=768774420",
+    "author": {
+      "name": "Some links we recomend to check out:",
+      "icon": "https://img.icons8.com/cotton/64/000000/info.png"
+    },
+    "fields": [
+      {
+        "title": "Maps and mods can be downloaded here:",
+        "value": "https://steamcommunity.com/workshop/browse/?appid=311210"
+      },
+      {
+        "title": "How-to-guide by Treyarch for creating mods:",
+        "value": "http://steamcommunity.com/sharedfiles/filedetails/?id=770558798"
+      },
+      {
+        "title": "Getting started with Mod Tools:",
+        "value": "https://www.youtube.com/watch?v=x8cMkTSgCoI"
+      },
+      {
+        "title": "A script API can be found here:",
+        "value": "http://ehdgaming.co.uk/blops3api/"
+      },
+      {
+        "title": "Verify your discord account in order to chat:",
+        "value": "http://auth.cod.tools/"
+      }
+    ]
+  },
+  {
+    "message_snowflake": "682660084123435137",
+    "channel_snowflake": "682256527997796395",
+    "color": "#ff6a00",
+    "title": "Few Words",
+    "description": "Hello and welcome to the Black Ops 3 Mod Tools Discord server! Here you can chat and learn something new about the tools! In order for us all to get along, we have a set of rules that are enforced on the server.",
+    "author": {
+      "name": "Welcome to the server!",
+      "icon": "https://cdn.discordapp.com/emojis/230683116853788673.png?v=1"
+    },
+    "fields": [
+      {
+        "title": "Rules of the server", 
+        "value": "**1)** No harassment - Including sexual harassment or encouraging of harassment.\n\n**2)** If someone has a problem with something very obvious, explain to him nicely, don't be rude.\n\n**3)** Make sure the discussion is in a proper channel to avoid spam.\n\n**4)** Don't talk in languages other than English, unless you provide a translation.\n\n**5)** Don't post a shitload of memes where it doesn't belong. While we all like to have some fun, it can become annoying over time.\n\n**6)** Don't spam emotes.\n\n**7)** Don't spam full CAPS sentences.\n\n**8)** No offensive nicknames - Anything that a reasonable person might find offensive.\n\n**9)** Don't post someone's personal information.\n\n**10)** No Gorey, Sexual, porn, nudity or other NSFW content.\n\n **11)** Some words deemed offensive will get you muted for a time, be respectful!\n\n**12)** Don't try to self moderate, if something needs sorting out please contact a member of the staff team. Or send a message to <@575252669443211264> for assistance.\n\n"
+      },
+      {
+        "title": "Discord Rules", 
+        "value": "Discord Terms of Service: https://discordapp.com/terms\n Discord Community Guidelines: https://discordapp.com/guidelines\n\n"
+      },
+      {
+        "title": "Complaints", 
+        "value": "There may be situations not covered by the rules or times where the rule may not fit the situation. If this happens the staff team are trusted to handle the situation appropriately. Feel free to contact any another member of the staff team regarding the complaint."
+      }
+    ],
+    "timestamp": true,
+    "footer": {
+      "title": "Updated",
+      "value": "https://cdn.discordapp.com/icons/230615005194616834/a_6348df7be488485fa70fae728b809d15.webp?size=128"
+    }
+  }
+]

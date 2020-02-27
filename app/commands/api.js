@@ -28,8 +28,8 @@ module.exports = class Api {
             }
 
             if (!data[0].hasOwnProperty('functionName')) {
-                console.info(message.author.tag + ` searched for API function ${args} but it was not found.`);
-                message.reply(`sorry, but I was unable to find the function ${args}.`);
+                console.info(message.author.tag + ` searched for API function ${command} but it was not found.`);
+                await message.reply(`sorry, but I was unable to find the function ${command}.`);
                 return;
             }
 
