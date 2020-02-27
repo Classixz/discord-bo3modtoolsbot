@@ -55,6 +55,6 @@ module.exports = class Update {
     }
 
     getEmbedFiles() {
-        return fs.readdirSync(resolve('./app/embeds/'));
+        return fs.readdirSync(resolve('./app/embeds/')).filter(e => e.includes('.json'));
     }
 };
