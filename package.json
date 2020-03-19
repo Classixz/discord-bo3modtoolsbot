@@ -10,7 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js",
-    "watch": "nodemon bot.js"
+    "watch": "nodemon bot.js",
+    "steal": "node ./mee6stealer/stealer.js"
   },
   "keywords": [
     "heroku",
@@ -19,6 +20,7 @@
   "author": "Classixz",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "console-stamp": "^0.2.7",
     "dayjs": "^1.8.21",
     "discord.js": "^11.5.0",
