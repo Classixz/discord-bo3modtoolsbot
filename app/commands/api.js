@@ -14,7 +14,7 @@ module.exports = class Api {
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 
         request.get({
-            url: `http://ehdgaming.co.uk/blops3api/api.php/get/function/${command}/`,
+            url: `https://code.zombiemodding.com/api.php/get/function/${command}/`,
             json: true
         }, async (err, res, data) => {
             if (err) {
@@ -27,14 +27,14 @@ module.exports = class Api {
                 return;
             }
 
-            if (!data[0].hasOwnProperty('functionName')) {
+            if (!data.hasOwnProperty('functionName')) {
                 console.info(message.author.tag + ` searched for API function ${command} but it was not found.`);
                 await message.reply(`sorry, but I was unable to find the function ${command}.`);
                 return;
             }
 
-            let apiData = data[0];
-            let vars = JSON.parse(data[0].vars);
+            let apiData = data;
+            let vars = JSON.parse(data.vars);
             let keys = Object.keys(vars);
 
             let title = apiData.entity === "" ?  "void " + apiData.functionName + "(" : "void <" + apiData.entity + "> " + apiData.functionName + "(";
