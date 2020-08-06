@@ -1,0 +1,27 @@
+[
+  {
+    "message_snowflake": "682660090586726446",
+    "channel_snowflake": "675793247452528707",
+    "color": "#ff6a00",
+    "title": "You have been muted!",
+    "description": "While muted we recommend you to check out our rules. You can find them in <#230654595767074817>.",
+    "author": {
+      "name": "Muted :(",
+      "icon": "https://i.imgur.com/TcwFQMj.png"
+    },
+    "fields": [
+      {
+        "title": "Precautions against getting muted in the future",
+        "value": "Having a good knowledge of the rules will prevent you from getting muted in the future, if you feel that you have been wrongfully muted you can contact a member of the staff team."
+      },
+      {
+        "title": "Automation",
+        "value": "Some keywords might trigger an automatic mute, refrain from using them."
+      },
+      {
+        "title": "Durations",
+        "value": "Mutes are not permanent and will expire after a set amount of time, after it has expired you are free to use the server once again."
+      }
+    ]
+  }
+]
