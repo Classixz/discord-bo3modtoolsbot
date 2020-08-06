@@ -12,6 +12,9 @@ module.exports = class Update {
     }
 
     async execute(message, client, bot) {
+        if(message.guild === null)
+            return;
+
         const updateFile = message.content.split(" ")[1];
 
         // List the files we have that'll update things
