@@ -8,6 +8,9 @@ module.exports = class Help {
     }
 
     async execute(message, client, bot, commands) {
+        if(message.guild === null)
+            return;
+            
         const higher = isHigher(message.member) !== null;
 
         await (higher ? message.member : message.channel).send(
