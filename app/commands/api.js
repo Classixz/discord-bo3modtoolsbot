@@ -9,6 +9,7 @@ module.exports = class Api {
     }
 
     execute(message, client, bot) {
+       
         const command = message.content.split(" ")[1];
         if( !command )
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
@@ -58,7 +59,7 @@ module.exports = class Api {
             title += ")";
 
             await message.channel.send(
-                new Discord.RichEmbed()
+                new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('Description:')
                 .setAuthor("Usage of the function: " + apiData.functionName)
@@ -71,7 +72,7 @@ module.exports = class Api {
                 .addField('SERVER/CLIENT:', apiData.clientserver !== "" ? apiData.clientserver : "N/A", true)
                 .addField('EXAMPLE USAGE:', apiData.example !== "" ? '```' + apiData.example + '```' : "N/A")
                 .setTimestamp()
-                .setFooter('Requested by ' + message.author.tag, message.author.avatarURL));
+                .setFooter('Requested by ' + message.author.tag, message.author.avatarURL()));
 
             console.log(message.author.tag + ` searched for API function ${command}`);
         });

@@ -12,18 +12,20 @@ module.exports = class Status {
 
     async execute(message, client, bot) {
         await message.channel.send(
-            new Discord.RichEmbed()
+            new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('Status Log')
                 .addField('Logged in as:', client.user.tag)
                 .addField('Uptime:', `${dayjs().diff(bot.startTime, 'hour')} Hours`) // todo, improve
                 .addField('Memory Usage:', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
-                .addField('Total Members:', `${client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString()}`)
+                .addField('# Members:', `${client.users.cache.size}`, true)
+                .addField('# Channels', `${client.channels.cache.size}`, true)
+                .addField('# Guilds:', `${client.guilds.cache.size}`, true)
                 .addField('Discord.js version:', Discord.version, true)
                 .addField('Node version:', process.version, true)
                 .addField('OS version:', `${process.platform}, ${process.arch}`, true)
                 .setTimestamp()
-                .setFooter('Requested by ' + message.author.tag, message.author.avatarURL)
+                .setFooter('Requested by ' + message.author.tag, message.author.avatarURL())
         );
     }
 };

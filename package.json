@@ -4,7 +4,7 @@
   "description": "",
   "main": "bot.js",
   "engines": {
-    "node": "10.15.3",
+    "node": "12.16.3",
     "npm": "6.4.1"
   },
   "scripts": {
@@ -19,14 +19,15 @@
   "author": "Classixz",
   "license": "ISC",
   "dependencies": {
-    "console-stamp": "^0.2.7",
-    "dayjs": "^1.8.21",
-    "discord.js": "^11.5.0",
-    "dotenv": "^8.0.0",
-    "request": "^2.88.0",
-    "underscore": "^1.9.2"
+    "console-stamp": "^0.2.9",
+    "dayjs": "^1.8.32",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "mysql": "^2.18.1",
+    "request": "^2.88.2",
+    "underscore": "^1.10.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.4"
   }
 }

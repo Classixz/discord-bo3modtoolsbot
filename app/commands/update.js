@@ -42,7 +42,7 @@ module.exports = class Update {
             if( !channel )
                 return message.channel.send(`Error: Unable to find a channel with the snowflake of ${e.channel_snowflake}`);
 
-            channel.fetchMessages({
+            channel.messages.fetch({
                 around: e.message_snowflake,
                 limit: 1
             }).then(messages => {

@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+
 const isHigher = user => {
     const roles = getHigherRoles();
 return user.roles.find(e => roles.includes(e.id));
