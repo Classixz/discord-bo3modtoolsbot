@@ -1,5 +1,6 @@
 const dayjs = require('dayjs');
 const Discord = require("discord.js");
+const pjson = require('../../package.json');
 
 module.exports = class Status {
     constructor() {
@@ -15,6 +16,7 @@ module.exports = class Status {
             new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('Status Log')
+                .addField('Bot Version',  pjson.version)
                 .addField('Logged in as:', client.user.tag)
                 .addField('Uptime:', `${dayjs().diff(bot.startTime, 'hour')} Hours`) // todo, improve
                 .addField('Memory Usage:', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)

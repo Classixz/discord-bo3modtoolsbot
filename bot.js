@@ -3,18 +3,10 @@ require('dotenv').config();
 
 const Discord = require("discord.js");
 const dayjs = require('dayjs');
-const mysql = require('mysql');
-
+const pjson = require('./package.json');
 const commands = require('./app/commands');
 const client = new Discord.Client();
-
-// Connect to the database
-const con = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
+const {con, dbConnect, addRoles, saveRole} = require("./app/Utils");
       
 class Bot {
     constructor() {
@@ -24,13 +16,15 @@ class Bot {
     }
 
     start() {
+        console.log("BO3 Mod Tools bot v" + pjson.version + " is starting")
+        
         client.on("ready", () => this.ready());
         client.on("message", message => this.message(message));
 
         client.on('warn', (warn) => console.warn(warn));
         client.on('error', (error) => console.error(error));
+
         client.on('guildMemberAdd', (member) => addRoles(member));
- 
         client.on('guildMemberRemove', (member) => saveRole(member.guild.id, member.user.id, JSON.stringify(member._roles)));
 
         // Automatically reconnect if the bot disconnects due to inactivity
@@ -39,26 +33,20 @@ class Bot {
             client.connect();
         });
 
-        con.on('error', function(err) {
-            console.log("[mysql error]",err);
-        });
+        con.on('error', (err) => console.error("[mysql error]", err));
 
         client.login(process.env.BOT_TOKEN);
     }
 
     ready() {
-        con.connect(function(err) {
-            if (err) throw err;
-                console.log("Connected to Database!");
-        });
+        // Establish the database connection
+        dbConnect();
         
         // This event will run if the bot starts, and logs in, successfully.
         console.log(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
         // Example of changing the bot's playing game to something useful. `client.user` is what the
         // docs refer to as the "ClientUser".
-        setInterval(() => {
-            client.user.setActivity(`Serving ${client.users.cache.size} modders!`);
-        }, 30000); // Runs this every 30 seconds.
+        setInterval(() => { client.user.setActivity(`Serving ${client.users.cache.size} modders!`); }, 30000); // Runs this every 30 seconds.
     }
 
     async message(message) {
@@ -83,31 +71,6 @@ class Bot {
                 e.execute(message, client, this);
         });
     }
-}
-
-function addRoles(member) {
-    con.query("SELECT * FROM rolehistory WHERE memberid = '" + member.user.id + "' AND guild = '" + member.guild.id + "' LIMIT 1", function (err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-        if(result.length > 0) {
-            const oldRoles = JSON.parse(result[0].roles);
-            member.roles.set(oldRoles).catch(console.error);
-            console.log("Added " + oldRoles.length + " from roleHistory to " + member.user.username + "#" + member.user.discriminator);
-
-            // Cleanup on the database
-            var sql = "DELETE FROM rolehistory WHERE memberid = '" + member.user.id + "' AND guild = '" + member.guild.id + "'";
-            con.query(sql, function (err, result) {
-                if (err) throw err;
-            });
-        }
-      });
-}
-
-function saveRole(guild, memberid, roles) {
-    var sql = "INSERT INTO rolehistory (guild, memberid, roles) VALUES ('" + guild + "', '" + memberid + "', '" + roles + "')";
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-    });
 }
 
 // Start the bot :D
