@@ -2,8 +2,8 @@ require('console-stamp')(console, 'yyyy-mm-dd HH:MM:ss.l');
 require('dotenv').config();
 
 const Discord = require("discord.js");
-const dayjs = require('dayjs');
 const pjson = require('./package.json');
+const moment = require('moment');
 const commands = require('./app/commands');
 const client = new Discord.Client();
 const {con, dbConnect, addRoles, saveRole} = require("./app/Utils");
@@ -11,12 +11,12 @@ const {con, dbConnect, addRoles, saveRole} = require("./app/Utils");
 class Bot {
     constructor() {
         this.prefix = process.env.BOT_PREFIX;
-        this.startTime = dayjs();
+        this.startTime = moment();
         this.start()
     }
 
     start() {
-        console.log("BO3 Mod Tools bot v" + pjson.version + " is starting")
+        console.log("BO3 Mod Tools bot v" + pjson.version + " is starting");
         
         client.on("ready", () => this.ready());
         client.on("message", message => this.message(message));

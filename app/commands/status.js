@@ -1,6 +1,7 @@
-const dayjs = require('dayjs');
 const Discord = require("discord.js");
 const pjson = require('../../package.json');
+const moment = require('moment');
+const humanizeDuration = require('humanize-duration');
 
 module.exports = class Status {
     constructor() {
@@ -18,7 +19,7 @@ module.exports = class Status {
                 .setTitle('Status Log')
                 .addField('Bot Version',  pjson.version)
                 .addField('Logged in as:', client.user.tag)
-                .addField('Uptime:', `${dayjs().diff(bot.startTime, 'hour')} Hours`) // todo, improve
+                .addField('Uptime:', humanizeDuration(moment.duration(moment().diff(bot.startTime)).asMilliseconds(), { round: true }))
                 .addField('Memory Usage:', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
                 .addField('# Members:', `${client.users.cache.size}`, true)
                 .addField('# Channels', `${client.channels.cache.size}`, true)
