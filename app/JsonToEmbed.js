@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 const jsonToEmbed = data => {
-      const embed = new Discord.RichEmbed();
+      const embed = new Discord.MessageEmbed();
 
       embed.setTitle(data.title);
       embed.setDescription(data.description);

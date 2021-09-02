@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const mysql = require('mysql');
+const logger = require("./Logger");
 
 const isHigher = user => {
     const roles = getHigherRoles();
-    return user.roles.find(e => roles.includes(e.id));
+    return user._roles.find(e => roles.includes(e));
 };
 
 const getHigherRoles = () => {
@@ -21,11 +22,14 @@ const con = mysql.createConnection({
 //Connect to the database
 const dbConnect = () => {
     con.connect(function(err) {
-        if (err) throw err;
-            console.log("Successfully established a connection with MySQL database");
+        if (err) {
+            // throw err;
+            logger.error("[DB] " + err);
+        } else {
+            logger.log("[DB] Successfully established a connection with MySQL database");
+        }
     });
 };
-
 
 // Add roles from the database
 const addRoles = member => {
@@ -52,6 +56,5 @@ const saveRole = (guild, memberid, roles) => {
         if (err) throw err;
     });
 };
-
 
 module.exports = {isHigher, getHigherRoles, con, dbConnect, addRoles, saveRole};

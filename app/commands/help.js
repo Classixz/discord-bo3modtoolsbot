@@ -14,10 +14,10 @@ module.exports = class Help {
         const higher = isHigher(message.member) !== null;
 
         await (higher ? message.member : message.channel).send(
-            new Discord.RichEmbed()
+            new Discord.MessageEmbed()
                 .setColor('#00a8ff')
                 .setTitle("Command List")
-                .setDescription("A list of commands for our bot" + (!higher ? '' : 'You have been DM\'d this list as it contains sensitive commands'))
+                .setDescription("A list of commands for our bot" + (!higher ? '' : '\nYou have been DM\'d this list as it contains sensitive commands'))
                 .addField('Commands', commands.filter(e => !(!higher && e.isHigher)).map(e => {
                     return `\`${bot.prefix}${e.command}\` _${e.help}_`
                 }))
