@@ -5,4 +5,5 @@ module.exports = [
     new (require('./commands/help'))(),
     new (require('./commands/ping'))(),
     new (require('./commands/whois'))(),
+    new (require('./commands/api'))(),
 ];
