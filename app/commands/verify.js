@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const request = require('request');
-
+const _ = require('underscore');
 module.exports = class Verify {
     constructor() {
         this.command = "verify";
@@ -23,21 +23,25 @@ module.exports = class Verify {
             json: true
         }, async (err, res, data) => {
             if (err) {
-                client.logger.error('Command: API returned following error:', err);
+                client.logger.error('Verification API Error:', err);
                 return;
             }
 
             if (res.statusCode !== 200) {
-                client.logger.warn('Command: API returned following status:', res.statusCode);
+                client.logger.warn('Verification API returned following status:', res.statusCode);
+                return;
+            }
+
+            if (_.isEmpty(data)) {
+                await message.channel.send(`${member} is not verified, the user might be verified on another Discord account.`);
                 return;
             }
 
             if (data.hasOwnProperty('error')) {
-                client.logger.info(`${process.env.VERIFICATION_URL}?task=isVerified&id=${member.id}&api_key=${process.env.VERIFICATION_API_KEY}`);
                 await message.reply(`Sorry, but I'm not able to check the status of ${member} at the moment.`);
                 return;
             } else {
-                await message.channel.send(`${member} is verified, and was verified this date: ${data[0].created_at}.`);
+                await message.channel.send(`${member} is verified and perform the verification this date: ${data[0].created_at}.`);
                 await message.member.send(
                     new Discord.MessageEmbed()
                         .setColor('#0099ff')
@@ -51,7 +55,7 @@ module.exports = class Verify {
                         .setTimestamp()
                         .setFooter('Requested by ' + message.author.tag, message.author.avatarURL())
                 );
-            }
+            } 
         });
     }
 };
