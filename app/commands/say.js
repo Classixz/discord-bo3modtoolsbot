@@ -2,7 +2,6 @@ module.exports = class Say {
     constructor() {
         this.command = "say";
         this.help = "Say something as the bot!";
-
         this.isHigher = true;
     }
 

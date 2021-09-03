@@ -5,7 +5,6 @@ module.exports = class Verify {
     constructor() {
         this.command = "verify";
         this.help = "Check if a user is verified";
-
         this.isHigher = true;
     }
 

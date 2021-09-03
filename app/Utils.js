@@ -4,7 +4,14 @@ const logger = require("./Logger");
 
 const isHigher = user => {
     const roles = getHigherRoles();
-    return user._roles.find(e => roles.includes(e));
+    for (var i = 0; i < user._roles.length; i++) {
+        for (var x = 0; x < roles.length; x++) {
+            if(user._roles[i] === roles[x]) {
+                return true;
+            }
+        }
+    }
+    return false;
 };
 
 const getHigherRoles = () => {

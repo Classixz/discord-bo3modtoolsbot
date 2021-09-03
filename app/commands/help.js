@@ -5,13 +5,14 @@ module.exports = class Help {
     constructor() {
         this.command = "help";
         this.help = "Display a list of commands at your disposal";
+        this.isHigher = false;
     }
 
     async execute(message, client, bot, commands) {
         if(message.guild === null)
             return;
             
-        const higher = isHigher(message.member) !== null;
+        const higher = isHigher(message.member);
 
         await (higher ? message.member : message.channel).send(
             new Discord.MessageEmbed()

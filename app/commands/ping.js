@@ -2,7 +2,6 @@ module.exports = class Ping {
     constructor() {
         this.command = "ping";
         this.help = "It like... Pings. Then Pongs. And it's not Ping Pong.";
-
         this.isHigher = true;
     }
 

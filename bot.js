@@ -11,7 +11,7 @@ const client = new Discord.Client({
     }
 });
 
-const {con, dbConnect, addRoles, saveRole} = require("./app/Utils");
+const {isHigher, con, dbConnect, addRoles, saveRole} = require("./app/Utils");
 
 // Require our logger
 client.logger = require("./app/Logger");
@@ -52,7 +52,7 @@ class Bot {
     ready() {                
         // Establish the database connection
         dbConnect();
-        
+
         // This event will run if the bot starts, and logs in, successfully.
         client.logger.ready(`Logged in as ${client.user.tag}!`);
         client.logger.ready(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
@@ -77,7 +77,10 @@ class Bot {
             if( !command.includes(e.command) )
                 return;
 
-                client.logger.cmd(`${message.author.username} (${message.author.id}) ran command "${e.command}"`);    
+            if(e.isHigher && !isHigher(message.member)) // Ignore the command if the user is not staff
+                return;
+
+            client.logger.cmd(`${message.author.username} (${message.author.id}) ran command "${e.command}"`);    
 
             // Help requires our singleton array of commands classes (js is odd)
             if( e.command === 'help' )

@@ -5,7 +5,6 @@ module.exports = class Whois {
     constructor() {
         this.command = "whois";
         this.help = "Returns user information!";
-
         this.isHigher = true;
     }
 
