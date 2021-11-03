@@ -11,7 +11,7 @@ module.exports = class Status {
     }
 
     async execute(message, client, bot) {
-        await message.channel.send(
+        await message.channel.send({ embeds: [
             new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('Status Log')
@@ -27,6 +27,6 @@ module.exports = class Status {
                 .addField('OS version:', `${process.platform}, ${process.arch}`, true)
                 .setTimestamp()
                 .setFooter('Requested by ' + message.author.tag, message.author.avatarURL())
-        );
+        ]});
     }
 };

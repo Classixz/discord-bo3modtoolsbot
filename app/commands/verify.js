@@ -37,23 +37,23 @@ module.exports = class Verify {
             }
 
             if (data.hasOwnProperty('error')) {
-                await message.reply(`Sorry, but I'm not able to check the status of ${member} at the moment.`);
+                await message.reply({ content: `Sorry, but I'm not able to check the status of ${member} at the moment.`, allowedMentions: { repliedUser: false }});
                 return;
             } else {
-                await message.channel.send(`${member} is verified and perform the verification this date: ${data[0].created_at}.`);
-                await message.member.send(
+                await message.channel.send(`${member} got verified at \`${data[0].created_at}\`.`);
+                await message.member.send({ embeds: [
                     new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle(`Verification Information`)
-                        .addField('Discord Name', member, true)
-                        .addField('Discord ID', data[0].discord_id, true)
+                        .addField('Discord Name', `${member}`, true)
+                        .addField('Discord ID', `${data[0].discord_id}`, true)
                         .addField('\u200B', '\u200B', false)
-                        .addField('Steam Name', data[0].steam_name, true)
-                        .addField('Steam ID', data[0].steam_id, true)
-                        .addField('Verification Date', data[0].created_at, false)
+                        .addField('Steam Name', `${data[0].steam_name}`, true)
+                        .addField('Steam ID', `${data[0].steam_id}`, true)
+                        .addField('Verification Date', `${data[0].created_at}`, false)
                         .setTimestamp()
                         .setFooter('Requested by ' + message.author.tag, message.author.avatarURL())
-                );
+                ]});
             } 
         });
     }

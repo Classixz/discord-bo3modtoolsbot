@@ -6,9 +6,7 @@ const moment = require('moment');
 const commands = require('./app/commands');
 
 const client = new Discord.Client({
-    ws: {
-      intents: ["GUILDS","GUILD_MESSAGES","DIRECT_MESSAGES","GUILD_BANS","GUILD_EMOJIS","GUILD_INTEGRATIONS","GUILD_WEBHOOKS","GUILD_INVITES","GUILD_VOICE_STATES","GUILD_MESSAGE_REACTIONS","GUILD_MESSAGE_TYPING","DIRECT_MESSAGE_REACTIONS","DIRECT_MESSAGE_TYPING","GUILD_PRESENCES","GUILD_MEMBERS"]
-    }
+    intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILDS]
 });
 
 const {isHigher, con, dbConnect, addRoles, saveRole} = require("./app/Utils");
@@ -27,7 +25,7 @@ class Bot {
         client.logger.log("BO3 MT Bot v" + pjson.version + " is starting");
         
         client.on("ready", () => this.ready());
-        client.on("message", message => this.message(message));
+        client.on("messageCreate", message => this.message(message));
 
         client.on('guildCreate', (guild) => client.logger.log(`[GUILD JOIN] ${guild.name} (${guild.id}) added the bot. Owner: ${guild.owner.user.tag} (${guild.owner.user.id})`));
         client.on('guildDelete', (guild) => client.logger.log(`[GUILD LEAVE] ${guild.name} (${guild.id}) removed the bot.`));
@@ -59,7 +57,7 @@ class Bot {
         client.logger.ready(`Command Prefix is: "${process.env.BOT_PREFIX}", Loaded ${commands.length} commands: ${commands.map(c => `${c.command}`).join(', ')}`);
         
         // Set the bots status
-        setInterval(() => { client.user.setActivity(`Serving ${client.users.cache.size} modders!`); }, 30000); // Runs this every 30 seconds.
+        setInterval(() => { client.user.setPresence({ activities: [{ name: `Serving ${client.users.cache.size} modders!` }] }); }, 30000); // Runs this every 30 seconds.
     }
 
     async message(message) {

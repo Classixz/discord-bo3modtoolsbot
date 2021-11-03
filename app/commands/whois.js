@@ -36,15 +36,10 @@ module.exports = class Whois {
                         **- Tag**: ${member.user.tag}                        
                         **- Nickname**: ${member.nickname !== null ? `${member.nickname}` : 'None'}`, true)
             
-            .addField('Misc Information:', `
-                        **- Game:** ${member.presence.game ? member.presence.game.name : 'None'}
-                        **- Server:** ${message.guild.name}
-                        **- Status:** ${member.presence.status}`, true)
-            
             .setTimestamp()
             .setFooter('Requested by ' + message.author.tag, message.author.avatarURL())
 
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 
 };

@@ -24,15 +24,15 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.1",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.3.1",
     "dotenv": "^8.6.0",
     "geoip-country": "^4.0.72",
     "humanize-duration": "^3.26.0",
     "moment": "^2.29.1",
+    "mysql": "^2.18.1",
     "request": "^2.88.2",
     "slash-commands": "^1.4.0",
-    "underscore": "^1.13.1",
-    "mysql": "^2.18.1"
+    "underscore": "^1.13.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

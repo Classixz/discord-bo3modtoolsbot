@@ -31,7 +31,7 @@ module.exports = class Api {
 
             if (!data.hasOwnProperty('functionName')) {
                 console.info(message.author.tag + ` searched for API function ${command} but it was not found.`);
-                await message.reply(`sorry, but I was unable to find the function ${command}.`);
+                await message.reply({ content: `Sorry, but I was unable to find the function \`${command}\`.`, allowedMentions: { repliedUser: false }})
                 return;
             }
 
@@ -59,7 +59,7 @@ module.exports = class Api {
             //Close Function
             title += ")";
 
-            await message.channel.send(
+            await message.channel.send( { embeds: [
                 new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('Description:')
@@ -73,9 +73,10 @@ module.exports = class Api {
                 .addField('SERVER/CLIENT:', apiData.clientserver !== "" ? apiData.clientserver : "N/A", true)
                 .addField('EXAMPLE USAGE:', apiData.example !== "" ? '```' + apiData.example + '```' : "N/A")
                 .setTimestamp()
-                .setFooter('Requested by ' + message.author.tag, message.author.avatarURL()));
+                .setFooter('Requested by ' + message.author.tag, message.author.avatarURL())
+            ]} );
 
-            console.log(message.author.tag + ` searched for API function ${command}`);
+            client.logger.debug(message.author.tag + ` searched for API function ${command}`)
         });
     }
 };
