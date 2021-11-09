@@ -28,14 +28,13 @@ const con = mysql.createConnection({
 
 //Connect to the database
 const dbConnect = () => {
-    // con.connect(function(err) {
-    //     if (err) {
-    //         // throw err;
-    //         logger.error("[DB] " + err);
-    //     } else {
-    //         logger.log("[DB] Successfully established a connection with MySQL database");
-    //     }
-    // });
+    con.connect(function(err) {
+        if (err) {
+            logger.error("[DB] " + err);
+        } else {
+            logger.log("[DB] Successfully established a connection with MySQL database");
+        }
+    });
 };
 
 // Add roles from the database
