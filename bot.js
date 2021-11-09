@@ -6,10 +6,10 @@ const moment = require('moment');
 const commands = require('./app/commands');
 
 const client = new Discord.Client({
-    intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILDS]
+    intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_MEMBERS]
 });
 
-const {isHigher, con, dbConnect, addRoles, saveRole} = require("./app/Utils");
+const {isHigher, con, dbConnect, addRoles, saveRoles} = require("./app/Utils");
 
 // Require our logger
 client.logger = require("./app/Logger");
@@ -27,11 +27,11 @@ class Bot {
         client.on("ready", () => this.ready());
         client.on("messageCreate", message => this.message(message));
 
-        client.on('guildCreate', (guild) => client.logger.log(`[GUILD JOIN] ${guild.name} (${guild.id}) added the bot. Owner: ${guild.owner.user.tag} (${guild.owner.user.id})`));
+        client.on('guildCreate', (guild) => client.logger.log(`[GUILD JOIN] ${guild.name} (${guild.id}) added the bot.`));
         client.on('guildDelete', (guild) => client.logger.log(`[GUILD LEAVE] ${guild.name} (${guild.id}) removed the bot.`));
-        client.on('guildMemberAdd', (member) => client.logger.log(`[GUILD MEMBER] ${member.user.username} has joined ${member.guild.name}!`));
-        client.on('guildMemberRemove', (member) => client.logger.log(`[GUILD MEMBER] ${member.user.username} has left ${member.guild.name}!`));
-        
+        client.on('guildMemberAdd', (member) => this.memberJoin(member));
+        client.on('guildMemberRemove', (member) => this.memberLeave(member));
+
         client.on('warn', (warn) => client.logger.warn(warn));
         client.on('error', (error) => client.logger.error(`An error event was sent by Discord.js: \n${JSON.stringify(error)}`, "error"));
         client.on('debug', (info) => client.logger.debug(info));
@@ -86,6 +86,16 @@ class Bot {
             else
                 e.execute(message, client, this);
         });
+    }
+
+    async memberJoin(member) {
+        client.logger.log(`[GUILD MEMBER] ${member.user.username} has joined ${member.guild.name}!`);
+        addRoles(member);
+    }
+
+    async memberLeave(member) {
+        client.logger.log(`[GUILD MEMBER] ${member.user.username} has left ${member.guild.name}!`);
+        saveRoles(member.guild.id, member.user.id, JSON.stringify(member._roles.toString().split(',')));
     }
 }
 
