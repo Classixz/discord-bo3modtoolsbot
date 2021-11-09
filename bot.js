@@ -4,12 +4,29 @@ const Discord = require('discord.js');
 const pjson = require('./package.json');
 const moment = require('moment');
 const commands = require('./app/commands');
+const fs = require('fs');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
 const client = new Discord.Client({
 	intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_MEMBERS],
 });
 
 const { isHigher, con, dbConnect, addRoles, saveRoles } = require('./app/Utils');
+
+// Initialize Slash Commands
+const slashCommands = [];
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./app/slashcmds').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const command = require(`./app/slashcmds/${file}`);
+	// Check and make sure that the function allows for slash commands
+	if (typeof command.slash === 'function') {
+		client.commands.set(command.data.name, command);
+		slashCommands.push(command.data.toJSON());
+	}
+}
 
 // Require our logger
 client.logger = require('./app/Logger');
@@ -42,6 +59,23 @@ class Bot {
 			client.connect();
 		});
 
+		client.on('interactionCreate', async interaction => {
+			if (!interaction.isCommand()) return;
+
+			const command = client.commands.get(interaction.commandName);
+
+			if (!command) return;
+
+			client.logger.cmd(`${interaction.user.username} (${interaction.user.id}) ran slash command "${interaction.commandName}"`);
+
+			try {
+				await command.slash(interaction);
+			} catch (error) {
+				client.logger.error(error);
+				await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+			}
+		});
+
 		con.on('error', (err) => client.logger.error('[mysql error]', err));
 
 		client.login(process.env.BOT_TOKEN);
@@ -56,6 +90,14 @@ class Bot {
 		client.logger.ready(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
 		client.logger.ready(`Command Prefix is: "${process.env.BOT_PREFIX}", Loaded ${commands.length} commands: ${commands.map(c => `${c.command}`).join(', ')}`);
 
+		// Initialize slash commands for all guilds
+		client.logger.debug(`Preparing registration of ${slashCommands.length} application commands for ${client.guilds.cache.size} guilds`);
+		const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
+		client.guilds.cache.forEach(server => {
+			rest.put(Routes.applicationGuildCommands(client.user.id, server.id), { body: slashCommands })
+				.then(() => client.logger.debug(`Successfully registered application commands for ${server.name} id: ${server.id}`))
+				.catch(console.error);
+		});
 		// Set the bots status (This runs every 30 seconds)
 		setInterval(() => { client.user.setPresence({ activities: [{ name: `Serving ${client.users.cache.size} modders!` }] }); }, 30000);
 	}
