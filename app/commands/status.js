@@ -10,6 +10,7 @@ module.exports = class Status {
 		this.isHigher = true;
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	async execute(message, client, bot) {
 		await message.channel.send({ embeds: [
 			new Discord.MessageEmbed()

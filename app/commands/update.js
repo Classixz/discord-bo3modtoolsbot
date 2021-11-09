@@ -10,6 +10,7 @@ module.exports = class Update {
 		this.isHigher = true;
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	async execute(message, client, bot) {
 		if (message.guild === null) {return;}
 
@@ -47,7 +48,7 @@ module.exports = class Update {
 							.then(() => {
 								message.channel.send(`Successfully updated http://discordapp.com/channels/${msg.guild.id}/${e.channel_snowflake}/${e.message_snowflake}`);
 							})
-							.catch(e => client.logger.log(e.message));
+							.catch(err => client.logger.log(err.message));
 					});
 				}).catch(client.logger.error);
 

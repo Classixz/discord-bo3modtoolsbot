@@ -7,6 +7,7 @@ module.exports = class Say {
 		this.isHigher = true;
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	execute(message, client, bot) {
 		const sayMessage = message.content.replace(`${bot.prefix}${this.command}`, '');
 

@@ -8,6 +8,7 @@ module.exports = class Verify {
 		this.isHigher = true;
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	execute(message, client, bot) {
 		const member = message.mentions.members.first();
 
@@ -34,11 +35,11 @@ module.exports = class Verify {
 				return;
 			}
 
+			// eslint-disable-next-line no-prototype-builtins
 			if (data.hasOwnProperty('error')) {
 				await message.reply({ content: `Sorry, but I'm not able to check the status of ${member} at the moment.`, allowedMentions: { repliedUser: false } });
 				return;
-			}
-			else {
+			} else {
 				await message.channel.send(`${member} got verified at \`${data[0].created_at}\`.`);
 				await message.member.send({ embeds: [
 					new Discord.MessageEmbed()

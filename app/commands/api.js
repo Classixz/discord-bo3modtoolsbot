@@ -9,6 +9,7 @@ module.exports = class Api {
 		this.isHigher = false;
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	execute(message, client, bot) {
 		const command = message.content.split(' ')[1];
 		if (!command) {
@@ -49,8 +50,7 @@ module.exports = class Api {
 				if (vars[keys[i]].mandatory) {
 					functionNames.push('<' + keys[i] + '>');
 					parametersMan.push('**<' + keys[i] + '>** ' + _.unescape(vars[keys[i]].description));
-				}
-				else {
+				} else {
 					functionNames.push('[' + keys[i] + ']');
 					parametersOpt.push('**[' + keys[i] + ']** ' + _.unescape(vars[keys[i]].description));
 				}

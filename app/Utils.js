@@ -32,8 +32,7 @@ const dbConnect = () => {
 	con.connect(function(err) {
 		if (err) {
 			logger.error('[DB] ' + err);
-		}
-		else {
+		} else {
 			logger.log('[DB] Successfully established a connection with MySQL database');
 		}
 	});
