@@ -38,6 +38,7 @@
     "underscore": "^1.13.1"
   },
   "devDependencies": {
+    "eslint": "^8.2.0",
     "nodemon": "^2.0.4"
   }
 }

@@ -1,102 +1,108 @@
 require('dotenv').config();
 
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const pjson = require('./package.json');
 const moment = require('moment');
 const commands = require('./app/commands');
 
 const client = new Discord.Client({
-    intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_MEMBERS]
+	intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_MEMBERS],
 });
 
-const {isHigher, con, dbConnect, addRoles, saveRoles} = require("./app/Utils");
+const { isHigher, con, dbConnect, addRoles, saveRoles } = require('./app/Utils');
 
 // Require our logger
-client.logger = require("./app/Logger");
+client.logger = require('./app/Logger');
 
 class Bot {
-    constructor() {
-        this.prefix = process.env.BOT_PREFIX;
-        this.startTime = moment();
-        this.start()
-    }
+	constructor() {
+		this.prefix = process.env.BOT_PREFIX;
+		this.startTime = moment();
+		this.start();
+	}
 
-    start() {
-        client.logger.log("BO3 MT Bot v" + pjson.version + " is starting");
-        
-        client.on("ready", () => this.ready());
-        client.on("messageCreate", message => this.message(message));
+	start() {
+		client.logger.log('BO3 MT Bot v' + pjson.version + ' is starting');
 
-        client.on('guildCreate', (guild) => client.logger.log(`[GUILD JOIN] ${guild.name} (${guild.id}) added the bot.`));
-        client.on('guildDelete', (guild) => client.logger.log(`[GUILD LEAVE] ${guild.name} (${guild.id}) removed the bot.`));
-        client.on('guildMemberAdd', (member) => this.memberJoin(member));
-        client.on('guildMemberRemove', (member) => this.memberLeave(member));
+		client.on('ready', () => this.ready());
+		client.on('messageCreate', message => this.message(message));
 
-        client.on('warn', (warn) => client.logger.warn(warn));
-        client.on('error', (error) => client.logger.error(`An error event was sent by Discord.js: \n${JSON.stringify(error)}`, "error"));
-        client.on('debug', (info) => client.logger.debug(info));
+		client.on('guildCreate', (guild) => client.logger.log(`[GUILD JOIN] ${guild.name} (${guild.id}) added the bot.`));
+		client.on('guildDelete', (guild) => client.logger.log(`[GUILD LEAVE] ${guild.name} (${guild.id}) removed the bot.`));
+		client.on('guildMemberAdd', (member) => this.memberJoin(member));
+		client.on('guildMemberRemove', (member) => this.memberLeave(member));
 
-        // Automatically reconnect if the bot disconnects due to inactivity
-        client.on('disconnect', function(err, code) {
-            client.logger.log('----- Bot disconnected from Discord with code', code, 'for reason:', err, '-----');
-            client.connect();
-        });
+		client.on('warn', (warn) => client.logger.warn(warn));
+		client.on('error', (error) => client.logger.error(`An error event was sent by Discord.js: \n${JSON.stringify(error)}`, 'error'));
+		client.on('debug', (info) => client.logger.debug(info));
 
-        con.on('error', (err) => client.logger.error("[mysql error]", err));
+		// Automatically reconnect if the bot disconnects due to inactivity
+		client.on('disconnect', function(err, code) {
+			client.logger.log('----- Bot disconnected from Discord with code', code, 'for reason:', err, '-----');
+			client.connect();
+		});
 
-        client.login(process.env.BOT_TOKEN);
-    }
+		con.on('error', (err) => client.logger.error('[mysql error]', err));
 
-    ready() {                
-        // Establish the database connection
-        dbConnect();
+		client.login(process.env.BOT_TOKEN);
+	}
 
-        // This event will run if the bot starts, and logs in, successfully.
-        client.logger.ready(`Logged in as ${client.user.tag}!`);
-        client.logger.ready(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
-        client.logger.ready(`Command Prefix is: "${process.env.BOT_PREFIX}", Loaded ${commands.length} commands: ${commands.map(c => `${c.command}`).join(', ')}`);
-        
-        // Set the bots status
-        setInterval(() => { client.user.setPresence({ activities: [{ name: `Serving ${client.users.cache.size} modders!` }] }); }, 30000); // Runs this every 30 seconds.
-    }
+	ready() {
+		// Establish the database connection
+		dbConnect();
 
-    async message(message) {
-        if (message.author.bot)
-            return;
+		// This event will run if the bot starts, and logs in, successfully.
+		client.logger.ready(`Logged in as ${client.user.tag}!`);
+		client.logger.ready(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
+		client.logger.ready(`Command Prefix is: "${process.env.BOT_PREFIX}", Loaded ${commands.length} commands: ${commands.map(c => `${c.command}`).join(', ')}`);
 
-        // Don't waste time.
-        if(!message.content.startsWith(this.prefix))
-            return;
+		// Set the bots status (This runs every 30 seconds)
+		setInterval(() => { client.user.setPresence({ activities: [{ name: `Serving ${client.users.cache.size} modders!` }] }); }, 30000);
+	}
 
-        const args = message.content.slice(this.prefix).trim().split(/ +/g);
-        const command = args.shift().toLowerCase();
+	async message(message) {
+		if (message.author.bot) {
+			return;
+		}
 
-        commands.forEach(e => {
-            if( !command.includes(e.command) )
-                return;
+		// Don't waste time.
+		if (!message.content.startsWith(this.prefix)) {
+			return;
+		}
 
-            if(e.isHigher && !isHigher(message.member)) // Ignore the command if the user is not staff
-                return;
+		const args = message.content.slice(this.prefix).trim().split(/ +/g);
+		const command = args.shift().toLowerCase();
 
-            client.logger.cmd(`${message.author.username} (${message.author.id}) ran command "${e.command}"`);    
+		commands.forEach(e => {
+			if (!command.includes(e.command)) {
+				return;
+			}
 
-            // Help requires our singleton array of commands classes (js is odd)
-            if( e.command === 'help' )
-                e.execute(message, client, this, commands);
-            else
-                e.execute(message, client, this);
-        });
-    }
+			// Ignore the command if the user is not staff
+			if (e.isHigher && !isHigher(message.member)) {
+				return;
+			}
 
-    async memberJoin(member) {
-        client.logger.log(`[GUILD MEMBER] ${member.user.username} has joined ${member.guild.name}!`);
-        addRoles(member);
-    }
+			client.logger.cmd(`${message.author.username} (${message.author.id}) ran command "${e.command}"`);
 
-    async memberLeave(member) {
-        client.logger.log(`[GUILD MEMBER] ${member.user.username} has left ${member.guild.name}!`);
-        saveRoles(member.guild.id, member.user.id, JSON.stringify(member._roles.toString().split(',')));
-    }
+			// Help requires our singleton array of commands classes (js is odd)
+			if (e.command === 'help') {
+				e.execute(message, client, this, commands);
+			} else {
+				e.execute(message, client, this);
+			}
+		});
+	}
+
+	async memberJoin(member) {
+		client.logger.log(`[GUILD MEMBER] ${member.user.username} has joined ${member.guild.name}!`);
+		addRoles(member);
+	}
+
+	async memberLeave(member) {
+		client.logger.log(`[GUILD MEMBER] ${member.user.username} has left ${member.guild.name}!`);
+		saveRoles(member.guild.id, member.user.id, JSON.stringify(member._roles.toString().split(',')));
+	}
 }
 
 // Start the bot :D
