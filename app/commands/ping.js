@@ -5,6 +5,7 @@ module.exports = class Ping {
 		this.isHigher = true;
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	async execute(message, client, bot) {
 		const msg = await message.channel.send('Ping?');
 		msg.edit(`Pong! Latency is ${msg.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
