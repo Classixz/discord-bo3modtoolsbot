@@ -7,5 +7,4 @@ module.exports = [
 	new (require('./commands/whois'))(),
 	new (require('./commands/api'))(),
 	new (require('./commands/verify'))(),
-	new (require('./commands/syncRoles'))(),
 ];
