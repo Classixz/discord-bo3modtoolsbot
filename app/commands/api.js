@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const _ = require('underscore');
 const closestMatch = require('closest-match');
 const fs = require('fs');
 
@@ -143,7 +142,7 @@ module.exports = class Api {
 				apiEmbed.addField('There were also ' + closeMatches + ' close matches to `' + command.toLowerCase() + '` here are they:', functionNames.filter(item => item).join(', ') + ' ' + (result.length < 8 ? '' : ' ... and ' + (closeMatches - 8) + ' more.'), false);
 			}
 
-			message.channel.send({ content: ':warning: **`'+process.env.BOT_PREFIX+'api <function>` will be replaced by `/api <function>` in the future** :warning: ' });
+			message.channel.send({ content: ':warning: **`' + process.env.BOT_PREFIX + 'api <function>` will be replaced by `/api <function>` in the future** :warning: ' });
 			message.channel.send({ embeds: [apiEmbed] });
 		}
 	}
