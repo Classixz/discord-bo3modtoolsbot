@@ -12,7 +12,7 @@ const client = new Discord.Client({
 	intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_MEMBERS],
 });
 
-const { isHigher, con, dbConnect, addRoles, saveRoles } = require('./app/Utils');
+const { isHigher, isVerified } = require('./app/Utils');
 
 // Initialize Slash Commands
 const slashCommands = [];
@@ -76,14 +76,10 @@ class Bot {
 			}
 		});
 
-		con.on('error', (err) => client.logger.error('[mysql error]', err));
-
 		client.login(process.env.BOT_TOKEN);
 	}
 
 	ready() {
-		// Establish the database connection
-		dbConnect();
 
 		// This event will run if the bot starts, and logs in, successfully.
 		client.logger.ready(`Logged in as ${client.user.tag}!`);
@@ -138,12 +134,12 @@ class Bot {
 
 	async memberJoin(member) {
 		client.logger.log(`[GUILD MEMBER] ${member.user.username} has joined ${member.guild.name}!`);
-		addRoles(member);
+		// Check if the user is verified
+		isVerified(member);
 	}
 
 	async memberLeave(member) {
 		client.logger.log(`[GUILD MEMBER] ${member.user.username} has left ${member.guild.name}!`);
-		saveRoles(member.guild.id, member.user.id, JSON.stringify(member._roles.toString().split(',')));
 	}
 }
 

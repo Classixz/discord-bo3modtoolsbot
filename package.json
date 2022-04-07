@@ -33,14 +33,12 @@
     "humanize-duration": "^3.26.0",
     "json-find": "^2.0.8",
     "moment": "^2.29.1",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.3.3-rc.0",
     "request": "^2.88.2",
     "slash-commands": "^1.4.0",
     "underscore": "^1.13.1"
   },
   "devDependencies": {
-    "eslint": "^8.2.0",
-    "nodemon": "^2.0.4"
+    "eslint": "8.2.0",
+    "nodemon": "2.0.4"
   }
 }

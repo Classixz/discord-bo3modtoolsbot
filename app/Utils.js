@@ -1,7 +1,8 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-const mysql = require('mysql2');
 const logger = require('./Logger');
+const request = require('request');
+const _ = require('underscore');
 
 const isHigher = user => {
 	const roles = getHigherRoles();
@@ -19,47 +20,31 @@ const getHigherRoles = () => {
 	return process.env.MANAGEMENT_ROLES.split(',');
 };
 
-// Database Connection
-const con = mysql.createConnection({
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	password: process.env.DB_PASSWORD,
-	database: process.env.DB_NAME,
-});
+// Query the API to check if the user is verified.
+const isVerified = (member) => {
+	logger.debug(`Checking if ${member.user.username} is verified`);
 
-// Connect to the database
-const dbConnect = () => {
-	con.connect(function(err) {
+	request.get({
+		url: `${process.env.VERIFICATION_URL}?task=isVerified&id=${member.user.id}&api_key=${process.env.VERIFICATION_API_KEY}`,
+		json: true,
+	}, async (err, res, data) => {
 		if (err) {
-			logger.error('[DB] ' + err);
+			logger.error('Verification API Error:', err);
+			return;
+		}
+
+		if (res.statusCode !== 200) {
+			logger.warn('Verification API returned following status:', res.statusCode);
+			return;
+		}
+
+		if (_.isEmpty(data)) {
+			logger.debug(`${member.user.username} is not verified.`);
 		} else {
-			logger.log('[DB] Successfully established a connection with MySQL database');
+			logger.debug(`${member.user.username} got verified at ${data[0].created_at}, adding role.`);
+			member.roles.add(process.env.VERIFIED_ROLE, 'Previously Verified').catch(console.error);
 		}
 	});
 };
 
-// Add roles from the database
-const addRoles = member => {
-	con.query('SELECT * FROM rolehistory WHERE memberid = ? AND guild = ? LIMIT 1', [member.user.id, member.guild.id],
-		function(err, results) {
-			const roles = JSON.parse(results[0].roles);
-			member.roles.add(roles, 'Role History').catch(console.error);
-			logger.debug(`${member.user.username} has ${roles.length} roles in role history.`);
-
-			// Cleanup on the database
-			con.query('DELETE FROM rolehistory WHERE memberid = ? AND guild = ?', [member.user.id, member.guild.id],
-				function(err, results) {
-					logger.debug(`Cleaned up role history for ${member.user.username}`);
-				});
-		});
-};
-
-// Save roles to the database
-const saveRoles = (guild, memberid, roles) => {
-	con.query('INSERT INTO rolehistory (guild, memberid, roles) VALUES (?, ?, ?)', [guild, memberid, roles],
-		function(err, results) {
-			logger.debug(`Saved roles for guild ${guild} and member ${memberid}, roles: ${roles}`);
-		});
-};
-
-module.exports = { isHigher, getHigherRoles, con, dbConnect, addRoles, saveRoles };
+module.exports = { isHigher, getHigherRoles, isVerified };
