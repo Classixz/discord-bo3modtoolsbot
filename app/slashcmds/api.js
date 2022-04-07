@@ -1,6 +1,4 @@
-const request = require('request');
 const Discord = require('discord.js');
-const _ = require('underscore');
 const logger = require('../Logger');
 const fs = require('fs');
 const closestMatch = require('closest-match');
@@ -109,7 +107,7 @@ module.exports = {
 				if (x.mandatory) {
 					return '`' + x.name + '` **<Manditory>** ' + x.description;
 				} else {
-					return '`' + x.name + '` **<Optional>** ' + x.description;
+					return '`' + x.name + '` **[Optional]** ' + x.description;
 				}
 			}).join('\n');
 
@@ -147,5 +145,5 @@ module.exports = {
 
 			await interaction.reply({ embeds: [apiEmbed] });
 		}
-	}
+	},
 };

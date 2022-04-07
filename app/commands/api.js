@@ -106,7 +106,7 @@ module.exports = class Api {
 				if (x.mandatory) {
 					return '`' + x.name + '` **<Manditory>** ' + x.description;
 				} else {
-					return '`' + x.name + '` **<Optional>** ' + x.description;
+					return '`' + x.name + '` **[Optional]** ' + x.description;
 				}
 			}).join('\n');
 
