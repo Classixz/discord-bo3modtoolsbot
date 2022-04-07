@@ -103,6 +103,11 @@ class Bot {
 			return;
 		}
 
+		// To save some time, lets quickly verify any non verified member we might have missed if they type.
+		if (message.channelId == process.env.VERIFICATION_HELP_CHANNEL && !message.member.roles.cache.has(process.env.VERIFIED_ROLE)) {
+			isVerified(message.member);
+		}
+
 		// Don't waste time.
 		if (!message.content.startsWith(this.prefix)) {
 			return;
