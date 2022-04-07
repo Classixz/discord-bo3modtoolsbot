@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const logger = require('../Logger');
 const fs = require('fs');
 const closestMatch = require('closest-match');
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, codeBlock } = require('@discordjs/builders');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -115,7 +115,9 @@ module.exports = {
 				apiEmbed.addField('Parameters', String(parameters), false);
 			}
 
-			apiEmbed.addField('Example', '```' + result[index].example + '```', false);
+			if (result[index].example != null) {
+				apiEmbed.addField('Example', codeBlock('c', result[index].example), false);
+			}
 
 			if (result[index].section !== '') {
 				apiEmbed.addField('Section', result[index].section.charAt(0).toUpperCase() + result[index].section.slice(1), true);

@@ -823,7 +823,7 @@
     {
         "access": "Server",
         "description": "Returns a sorted array of entities by closest or farthest distance from <origin>",
-        "example": null,
+        "example": "ArraySort( nodes, self.origin );",
         "functionName": "ArraySort",
         "referenceVariable": "",
         "returnValue": "void",
@@ -859,7 +859,7 @@
     {
         "access": "Server",
         "description": "Returns a sorted array of entities by closest from <origin>",
-        "example": null,
+        "example": "ArraySortClosest( laststandTargets, entity.origin );",
         "functionName": "ArraySortClosest",
         "referenceVariable": "",
         "returnValue": "void",
@@ -2461,7 +2461,7 @@
     {
         "access": "Server",
         "description": "cylinder_dir_vector should contains the direction and the length of the cylinder relative to the base origin",
-        "example": null,
+        "example": "CylinderDamage(VectorScale(right_direction, 140), origin, 15, 50, self.radiusdamagemax, self.radiusdamagemax / 5, self, \"MOD_EXPLOSIVE\", self.turretWeapon);",
         "functionName": "CylinderDamage",
         "referenceVariable": "",
         "returnValue": "void",
@@ -2802,7 +2802,7 @@
     {
         "access": "Server",
         "description": "Stops cooked grenades from killing the player.",
-        "example": null,
+        "example": "DisableGrenadeSuicide();",
         "functionName": "DisableGrenadeSuicide",
         "referenceVariable": "",
         "returnValue": "void",
@@ -2997,7 +2997,7 @@
     {
         "access": "Server",
         "description": "Used to decrement consumable double xp promotions",
-        "example": null,
+        "example": "self DoubleXPTimerFired();",
         "functionName": "DoubleXPTimerFired",
         "referenceVariable": "<player>",
         "returnValue": "void",
@@ -6274,7 +6274,7 @@
     {
         "access": "Server",
         "description": "Returns an array containing all the dropped weapons in the level",
-        "example": null,
+        "example": "weapons = GetDroppedWeapons();",
         "functionName": "GetDroppedWeapons",
         "referenceVariable": "",
         "returnValue": "entity[]",
@@ -7369,7 +7369,7 @@
     {
         "access": "Client",
         "description": "returns if the client is in killcam or not.",
-        "example": null,
+        "example": "if ( player GetInKillcam( localClientNum ) )",
         "functionName": "GetInKillcam",
         "referenceVariable": "",
         "returnValue": "int",
@@ -7489,7 +7489,7 @@
     {
         "access": "Client",
         "description": "returns the killcamentity.",
-        "example": null,
+        "example": "player GetKillCamEntity( localClientNum );",
         "functionName": "GetKillCamEntity",
         "referenceVariable": "",
         "returnValue": "entity",
@@ -8039,7 +8039,7 @@
     {
         "access": "Client",
         "description": null,
-        "example": null,
+        "example": "if ( GetMigrationStatus(localClientNum) ) ",
         "functionName": "GetMigrationStatus",
         "referenceVariable": "",
         "returnValue": "void",
@@ -8846,7 +8846,7 @@
     {
         "access": "Client",
         "description": "Returns string of gibdef for current player",
-        "example": null,
+        "example": "entity GetPlayerGibDef();",
         "functionName": "GetPlayerGibDef",
         "referenceVariable": "<player>",
         "returnValue": "string",
@@ -10445,7 +10445,7 @@
     {
         "access": "Server",
         "description": null,
-        "example": null,
+        "example": "GetWeaponAttachments( weapon, a1 );",
         "functionName": "GetWeaponAttachments",
         "referenceVariable": "",
         "returnValue": "string[]",
@@ -11994,7 +11994,7 @@
     {
         "access": "Client",
         "description": "Returns true if the ent it's called on is a local player.",
-        "example": null,
+        "example": "if ( self isLocalPlayer() )",
         "functionName": "IsLocalPlayer",
         "referenceVariable": "<entity>",
         "returnValue": "int",
@@ -12232,7 +12232,7 @@
     {
         "access": "Client",
         "description": "Returns true if the ent it's called on is a player corpse.",
-        "example": null,
+        "example": "entity IsPlayerCorpse()",
         "functionName": "IsPlayerCorpse",
         "referenceVariable": "<entity>",
         "returnValue": "int",
@@ -12851,7 +12851,7 @@
     {
         "access": "Server",
         "description": "Returns true T7 Melee system is being used",
-        "example": null,
+        "example": "if ( isUsingT7Melee() )",
         "functionName": "IsUsingT7Melee",
         "referenceVariable": "",
         "returnValue": "bool",
@@ -13282,7 +13282,7 @@
     {
         "access": "Server",
         "description": "Only works if the player is currently linked to another entity and angles aren't locked. Lerps the current view angle constraints to the provided ones over the specified time.",
-        "example": null,
+        "example": "player LerpViewAngleClamp( .2, .1, .1, VAL( _s.viewclampright, 0), VAL( _s.viewclampleft, 0), VAL( _s.viewclamptop, 0), VAL( _s.viewclampbottom, 0) );",
         "functionName": "LerpViewAngleClamp",
         "referenceVariable": "<player>",
         "returnValue": "void",
@@ -14044,7 +14044,7 @@
     {
         "access": "Server",
         "description": "Update the novehicle flag on navmesh faces. This should only be used in MP map for now.",
-        "example": null,
+        "example": "MarkNoVehicleNavMeshFaces( mapCenter, radius, 21 );",
         "functionName": "MarkNoVehicleNavMeshFaces",
         "referenceVariable": "",
         "returnValue": "void",
@@ -14339,7 +14339,7 @@
     {
         "access": "Server",
         "description": "Move this entity to the given world z value",
-        "example": null,
+        "example": "ent_model MoveZ( 60, 1.0, 0.25, 0.25 );",
         "functionName": "MoveZ",
         "referenceVariable": "<script_model/script_origin/script_brushmodel>",
         "returnValue": "void",
@@ -14552,7 +14552,7 @@
     {
         "access": "Server",
         "description": "Clears the entity previous set on the objective",
-        "example": null,
+        "example": "objective_clearentity( objId );",
         "functionName": "Objective_ClearEntity",
         "referenceVariable": "",
         "returnValue": "void",
@@ -14568,7 +14568,7 @@
     {
         "access": "Server",
         "description": "Sets the objective to be not being used by the specified player.",
-        "example": null,
+        "example": "Objective_ClearPlayerUsing( self.objectiveID, player );",
         "functionName": "Objective_ClearPlayerUsing",
         "referenceVariable": "",
         "returnValue": "void",
@@ -14668,7 +14668,7 @@
     {
         "access": "Server",
         "description": "Sets the objective to get its position from an entity.",
-        "example": null,
+        "example": "Objective_OnEntity( self.objectiveID, entity );",
         "functionName": "Objective_OnEntity",
         "referenceVariable": "",
         "returnValue": "void",
@@ -14886,7 +14886,7 @@
     {
         "access": "Server",
         "description": "Sets the objective to be invisible to all players.",
-        "example": null,
+        "example": "Objective_SetInvisibleToAll( objectiveID );",
         "functionName": "Objective_SetInvisibleToAll",
         "referenceVariable": "",
         "returnValue": "void",
@@ -14902,7 +14902,7 @@
     {
         "access": "Server",
         "description": "Sets the objective to be invisible to the specified player.",
-        "example": null,
+        "example": "Objective_SetInvisibleToPlayer( self.objectiveid, e_player );",
         "functionName": "Objective_SetInvisibleToPlayer",
         "referenceVariable": "",
         "returnValue": "void",
@@ -14944,7 +14944,7 @@
     {
         "access": "Server",
         "description": "Sets the objective to being used by the specified player.",
-        "example": null,
+        "example": "Objective_SetPlayerUsing( self.objectiveID, player );",
         "functionName": "Objective_SetPlayerUsing",
         "referenceVariable": "",
         "returnValue": "void",
@@ -15064,7 +15064,7 @@
     {
         "access": "Server",
         "description": "Sets the objective to be visible to all players.",
-        "example": null,
+        "example": "Objective_SetVisibleToAll( self.objectiveid );",
         "functionName": "Objective_SetVisibleToAll",
         "referenceVariable": "",
         "returnValue": "void",
@@ -15080,7 +15080,7 @@
     {
         "access": "Server",
         "description": "Sets the objective to be visible to the specified player.",
-        "example": null,
+        "example": "Objective_SetVisibleToPlayer( self.objectiveid, e_player );",
         "functionName": "Objective_SetVisibleToPlayer",
         "referenceVariable": "",
         "returnValue": "void",
@@ -15215,7 +15215,7 @@
     {
         "access": "Server",
         "description": "Returns the approximate/semi-accurate path distance between two points or undefined if no path can be found.",
-        "example": null,
+        "example": "PathDistance( self.origin, goal_pos, true, self, level.pathdist_type );",
         "functionName": "PathDistance",
         "referenceVariable": "",
         "returnValue": "float",
@@ -16789,7 +16789,7 @@
     {
         "access": "Server",
         "description": null,
-        "example": null,
+        "example": "self RadiusDamage( self.origin, 256, 300, 75 );",
         "functionName": "RadiusDamage",
         "referenceVariable": "",
         "returnValue": "void",
@@ -16809,7 +16809,7 @@
     {
         "access": "Server",
         "description": "record a breadcrumb data point for player at time",
-        "example": null,
+        "example": "RecordBreadcrumbDataForPlayer( player, player.lastShotBy );",
         "functionName": "RecordBreadcrumbDataForPlayer",
         "referenceVariable": "",
         "returnValue": "void",
@@ -17363,7 +17363,7 @@
     {
         "access": "Server",
         "description": "Rotate this entity to the given yaw",
-        "example": null,
+        "example": "self RotateYaw(180, self.speed);",
         "functionName": "RotateYaw",
         "referenceVariable": "",
         "returnValue": "void",

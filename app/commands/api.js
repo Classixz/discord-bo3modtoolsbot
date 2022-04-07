@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const closestMatch = require('closest-match');
 const fs = require('fs');
+const { codeBlock } = require('@discordjs/builders');
 
 module.exports = class Api {
 	constructor() {
@@ -114,7 +115,9 @@ module.exports = class Api {
 				apiEmbed.addField('Parameters', String(parameters), false);
 			}
 
-			apiEmbed.addField('Example', '```' + result[index].example + '```', false);
+			if (result[index].example != null) {
+				apiEmbed.addField('Example', codeBlock('c', result[index].example), false);
+			}
 
 			if (result[index].section !== '') {
 				apiEmbed.addField('Section', result[index].section.charAt(0).toUpperCase() + result[index].section.slice(1), true);
