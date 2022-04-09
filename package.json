@@ -32,7 +32,7 @@
     "geoip-country": "^4.0.72",
     "humanize-duration": "^3.26.0",
     "json-find": "^2.0.8",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "request": "^2.88.2",
     "slash-commands": "^1.4.0",
     "underscore": "^1.13.1"
