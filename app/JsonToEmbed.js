@@ -1,7 +1,7 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
-const jsonToEmbed = data => {
-	const embed = new Discord.MessageEmbed();
+const jsonToEmbed = (data) => {
+	const embed = new Discord.EmbedBuilder();
 
 	embed.setTitle(data.title);
 	embed.setDescription(data.description);
@@ -15,7 +15,9 @@ const jsonToEmbed = data => {
 	}
 
 	if (data.fields) {
-		data.fields.forEach(e => embed.addField(e.title, e.value, e.inline ? e.inline : false));
+		data.fields.forEach((e) =>
+			embed.addField(e.title, e.value, e.inline ? e.inline : false)
+		);
 	}
 
 	if (data.timestamp) {

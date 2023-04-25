@@ -1,43 +1,43 @@
 [
-    {
-      "message_snowflake": "741023155853852792",
-      "channel_snowflake": "570316052945174548",
-      "color": "#ff6a00",
-      "title": "Verification of new users",
-      "description": "As of May 2019 we require all members of our Discord server to authenticate their Discord account together with their Steam in order to make sure they own Black Ops 3; this decision was made due to a problem we had with alt-accounts.\n In order to get verified you have to login with the Discord account you plan on using when posting in the Discord and a Steam account that owns Black Ops 3. \n***Please note that only one Discord and Steam can be verified.*** \nYou can get verified at this URL: http://auth.cod.tools/ \nIf you don’t want to verify you will still be able to use the Discord server, however you will not be able to send any messages.",
-      "author": {
-        "name": "Not yet verified",
-        "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRt6efUkPCFrE5ayqggWaVzlhYSBvlJRrfnZw&usqp=CAU"
+  {
+    "message_snowflake": "741023155853852792",
+    "channel_snowflake": "570316052945174548",
+    "color": "#ff6a00",
+    "title": "Verification of new users",
+    "description": "As of May 2019 we require all members of our Discord server to authenticate their Discord account together with their Steam in order to make sure they own Black Ops 3; this decision was made due to a problem we had with alt-accounts.\n In order to get verified you have to login with the Discord account you plan on using when posting in the Discord and a Steam account that owns Black Ops 3. \n***Please note that only one Discord and Steam can be verified.*** \nYou can get verified at this URL: http://auth.cod.tools/ \nIf you don’t want to verify you will still be able to use the Discord server, however you will not be able to send any messages.",
+    "author": {
+      "name": "Not yet verified",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRt6efUkPCFrE5ayqggWaVzlhYSBvlJRrfnZw&usqp=CAU"
+    },
+    "fields": [
+      {
+        "title": "Do I need to keep my Steam Profile public after verification?",
+        "value": "No, you will only need to have it public during the verification process?"
       },
-      "fields": [
-        {
-          "title": "Do I need to keep my Steam Profile public after verification?",
-          "value": "No, you will only need to have it public during the verification process?"
-        },
-        {
-          "title": "What data is saved?",
-          "value": "We will store your Discord ID, Steam ID and the IP that registered. We do not handle login process; they are done respectively on Discord and Steam via their public APIs."
-        },
-        {
-          "title": "Why is this system taken into effect?",
-          "value": "This system is designed to stop the use of alternative account which we had a problem within the past, this system aims to prevent that completely."
-        },
-        {
-          "title": "What will I miss out on if I choose not to verify?",
-          "value": "Non-verified users will lose the ability to chat on the server, however you will still be able to use the server to find tutorials, assets, code snippets and other things."
-        },
-        {
-          "title": "What can this system be compared to?",
-          "value": "This system can be compared to a forum registration; except the only requirement we have set is that you need to own Black Ops 3. Like most forums on the internet you are not able to interact and chat without having a registered account."
-        },
-        {
-          "title": "Where do I go to get verified?",
-          "value": "Visit http://auth.cod.tools/ and sign in with your Discord and Steam account, once the process is done you will automatically get the role if you meet the requirement of owning Black Ops 3 on Steam."
-        },
-        {
-          "title": "I’ve got an issue getting verified, what can I do?",
-          "value": "First of all make sure to check your Steam profile privacy settings over at https://steamcommunity.com/id/me/edit/settings, make sure that “My Profile” is set to public and that “Game details” is public, if that does not solve your issue, try turning everything to public.  Please note that the Steam API updates slowly sometimes and that might also be an issue, if the steps above did not solve your problem you might have to wait a few minutes. If you still experience problems, you can contact any member of the staff team for assistance via <@575252669443211264> or write in <#576858429419683850>. "
-        }
-      ]
-    }
-  ]
+      {
+        "title": "What data is saved?",
+        "value": "We will store your Discord ID, Steam ID and the IP that registered. We do not handle login process; they are done respectively on Discord and Steam via their public APIs."
+      },
+      {
+        "title": "Why is this system taken into effect?",
+        "value": "This system is designed to stop the use of alternative account which we had a problem within the past, this system aims to prevent that completely."
+      },
+      {
+        "title": "What will I miss out on if I choose not to verify?",
+        "value": "Non-verified users will lose the ability to chat on the server, however you will still be able to use the server to find tutorials, assets, code snippets and other things."
+      },
+      {
+        "title": "What can this system be compared to?",
+        "value": "This system can be compared to a forum registration; except the only requirement we have set is that you need to own Black Ops 3. Like most forums on the internet you are not able to interact and chat without having a registered account."
+      },
+      {
+        "title": "Where do I go to get verified?",
+        "value": "Visit http://auth.cod.tools/ and sign in with your Discord and Steam account, once the process is done you will automatically get the role if you meet the requirement of owning Black Ops 3 on Steam."
+      },
+      {
+        "title": "I’ve got an issue getting verified, what can I do?",
+        "value": "First of all make sure to check your Steam profile privacy settings over at https://steamcommunity.com/id/me/edit/settings, make sure that “My Profile” is set to public and that “Game details” is public, if that does not solve your issue, try turning everything to public.  Please note that the Steam API updates slowly sometimes and that might also be an issue, if the steps above did not solve your problem you might have to wait a few minutes. If you still experience problems, you can contact any member of the staff team for assistance via <@575252669443211264> or write in <#576858429419683850>. "
+      }
+    ]
+  }
+]
