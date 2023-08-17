@@ -6,4 +6,5 @@ module.exports = [
 	new (require("./commands/ping"))(),
 	new (require("./commands/api"))(),
 	new (require("./commands/verify"))(),
+	new (require("./commands/contest"))(),
 ];

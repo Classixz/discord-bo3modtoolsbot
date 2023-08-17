@@ -91,6 +91,43 @@ class Bot {
 		});
 
 		client.on("interactionCreate", async (interaction) => {
+
+			// Mapping contests
+			if (interaction.isButton() && interaction.customId === "contest2_register") {
+
+				// Check if the user has the role already
+				if (interaction.member.roles.cache.has("1141840275313000551")) {
+					interaction.reply({
+						content: "You are already registered for the contest, if you want to withdraw, click the withdraw button.",
+						ephemeral: true,
+					});
+				} else {
+					// Add the role
+					interaction.member.roles.add("1141840275313000551");
+					interaction.reply({
+						content: "You have been successfully registered for the contest! Good luck!",
+						ephemeral: true,
+					});
+				}
+			}
+
+			if (interaction.isButton() && interaction.customId === "contest2_withdraw") {
+				// Check if the user has the role already
+				if (interaction.member.roles.cache.has("1141840275313000551")) {
+					// Remove the role
+					interaction.member.roles.remove("1141840275313000551");
+					interaction.reply({
+						content: "You have been successfully withdrawn from the contest!",
+						ephemeral: true,
+					});
+				} else {
+					interaction.reply({
+						content: "You are not registered for the contest, you can only withdraw if you are registered.",
+						ephemeral: true,
+					});
+				}
+			}
+
 			// Check if user clicked button with id verify_help
 			if (interaction.isButton() && interaction.customId === "verify_help") {
 				verificationHelpModal(interaction, Discord);
