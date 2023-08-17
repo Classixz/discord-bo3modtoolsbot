@@ -26,7 +26,7 @@ module.exports = class Verify {
 
 		request.get(
 			{
-				url: `${process.env.VERIFICATION_URL}?task=isVerified&id=${member.id}&api_key=${process.env.VERIFICATION_API_KEY}`,
+				url: `${process.env.VERIFICATION_API_URL}?task=isVerified&id=${member.id}&api_key=${process.env.VERIFICATION_API_KEY}`,
 				json: true,
 			},
 			async (err, res, data) => {
