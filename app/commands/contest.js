@@ -66,24 +66,29 @@ module.exports = class Contest {
 
 		// Check if there is a message with the ID
 		if (args.length > 1) {
-			const msg = message.channel.messages.cache.get(args[1]);
-			if (msg) {
-				// Check if the message is in the same channel
-				if (msg.channel.id === message.channel.id) {
-					// Check if the message is from the bot
-					if (msg.author.id === client.user.id) {
-						// Update the message
-						msg.edit(contestEmbed);
+			message.channel.messages.fetch(args[1])
+				.then(fetchedMsg => {
+					if (fetchedMsg) {
+						// Check if the message is in the same channel
+						if (fetchedMsg.channel.id === message.channel.id) {
+							// Check if the message is from the bot
+							if (fetchedMsg.author.id === client.user.id) {
+								// Update the message
+								fetchedMsg.edit(contestEmbed);
+							} else {
+								message.channel.send("The message is not from the bot.");
+							}
+						} else {
+							message.channel.send("The message is not from this channel.");
+						}
 					} else {
-						message.channel.send("The message is not from the bot.");
+						console.log(args[1]);
+						message.channel.send("There is no message with that ID.");
 					}
-				} else {
-					message.channel.send("The message is not from this channel.");
-				}
-			} else {
-				message.channel.send("There is no message with that ID.");
 
-			}
+				});
+
+
 		} else {
 			message.channel.send(contestEmbed);
 		}
