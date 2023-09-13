@@ -93,17 +93,37 @@ class Bot {
 		client.on("interactionCreate", async (interaction) => {
 
 			// Mapping contests
-			if (interaction.isButton() && interaction.customId === "contest2_register") {
+			if (interaction.isButton() && (interaction.customId === "contest_register" || interaction.customId === "contest_withdraw")) {
+				const currentTime = moment();
+				const contestStart = moment.unix(process.env.CONTEST_START).toDate();
+				const contestEnd = moment.unix(process.env.CONTEST_END).toDate();
+				if (currentTime.isBefore(contestStart)) {
+					interaction.reply({
+						content: "The contest has not started yet, please wait until the contest starts.",
+						ephemeral: true,
+					});
+					return;
+				}
+				if (currentTime.isAfter(contestEnd)) {
+					interaction.reply({
+						content: "The contest has ended, you can no longer register or withdraw from the contest.",
+						ephemeral: true,
+					});
+					return;
+				}
 
+			}
+
+			if (interaction.isButton() && interaction.customId === "contest_register") {
 				// Check if the user has the role already
-				if (interaction.member.roles.cache.has("1141840275313000551")) {
+				if (interaction.member.roles.cache.has(process.env.CONTEST_ROLE)) {
 					interaction.reply({
 						content: "You are already registered for the contest, if you want to withdraw, click the withdraw button.",
 						ephemeral: true,
 					});
 				} else {
 					// Add the role
-					interaction.member.roles.add("1141840275313000551");
+					interaction.member.roles.add(process.env.CONTEST_ROLE, "User registered for contest");
 					interaction.reply({
 						content: "You have been successfully registered for the contest! Good luck!",
 						ephemeral: true,
@@ -111,11 +131,11 @@ class Bot {
 				}
 			}
 
-			if (interaction.isButton() && interaction.customId === "contest2_withdraw") {
+			if (interaction.isButton() && interaction.customId === "contest_withdraw") {
 				// Check if the user has the role already
-				if (interaction.member.roles.cache.has("1141840275313000551")) {
+				if (interaction.member.roles.cache.has(process.env.CONTEST_ROLE)) {
 					// Remove the role
-					interaction.member.roles.remove("1141840275313000551");
+					interaction.member.roles.remove(process.env.CONTEST_ROLE, "User withdrew from contest");
 					interaction.reply({
 						content: "You have been successfully withdrawn from the contest!",
 						ephemeral: true,

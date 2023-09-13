@@ -9,11 +9,10 @@ module.exports = class Contest {
 
 	// eslint-disable-next-line no-unused-vars
 	execute(message, client, bot) {
-
 		message.delete().catch((O_o) => { });
 
-		message.channel.send({
-			"content": "@everyone, NoahJ456's Second Mapping Contest is now open for registration!",
+		const contestEmbed = {
+			"content": process.env.CONTEST_MESSAGE,
 			"tts": false,
 			"components": [
 				{
@@ -22,14 +21,14 @@ module.exports = class Contest {
 						{
 							"style": 3,
 							"label": `Register`,
-							"custom_id": `contest2_register`,
+							"custom_id": `contest_register`,
 							"disabled": false,
 							"type": 2
 						},
 						{
 							"style": 4,
 							"label": `Withdraw`,
-							"custom_id": `contest2_withdraw`,
+							"custom_id": `contest_withdraw`,
 							"disabled": false,
 							"type": 2
 						}
@@ -39,21 +38,55 @@ module.exports = class Contest {
 			"embeds": [
 				{
 					"type": "rich",
-					"title": `NoahJ456's Second Mapping Contest`,
-					"description": `• 20 winners each get $500\n• Timeframe: <t:1692136800:D> to <t:1696197540:f>\n• Theme: Horror\n• Duo / Solo (Duos split winnings)\n\nMore Information in the announcement: https://discord.com/channels/230615005194616834/230616112805445632/1141447938766290995\n\n** Maps have to be submitted by  <t:1696197540:f> in  https://discord.com/channels/230615005194616834/1111953746159747112 **\n\nRegister by clicking on the button below, you can also \n`,
+					"title": process.env.CONTEST_TITLE,
+					"description": process.env.CONTEST_DESCRIPTION,
 					"color": 0x00FFFF,
 					"image": {
-						"url": `https://cdn.discordapp.com/attachments/230616112805445632/1141447938334269521/noahj456.png`,
+						"url": process.env.CONTEST_IMAGE,
+						"height": 0,
+						"width": 0
+					},
+					"thumbnail": {
+						"url": process.env.CONTEST_HOST_AVATAR,
 						"height": 0,
 						"width": 0
 					},
 					"footer": {
-						"text": `NoahJ456's Second Mapping Contest, register by clicking the button bellow.`,
-						"icon_url": `https://cdn.discordapp.com/avatars/158073705040183296/7922d22a6e8aedaf79f97bfa6f6a4605.png`
+						"text": process.env.CONTEST_FOOTER_TEXT,
+						"icon_url": process.env.CONTEST_FOOTER_ICON,
 					},
-					"url": `https://discord.com/channels/230615005194616834/230616112805445632/1141447938766290995`
+					"url": process.env.CONTEST_ANNOUNCMENT_URL,
 				}
 			]
-		});
+		};
+
+
+		// Get the content of the message, so we can check if we have a message ID
+		const args = message.content.slice(bot.prefix).trim().split(/ +/g);
+
+		// Check if there is a message with the ID
+		if (args.length > 1) {
+			const msg = message.channel.messages.cache.get(args[1]);
+			if (msg) {
+				// Check if the message is in the same channel
+				if (msg.channel.id === message.channel.id) {
+					// Check if the message is from the bot
+					if (msg.author.id === client.user.id) {
+						// Update the message
+						msg.edit(contestEmbed);
+					} else {
+						message.channel.send("The message is not from the bot.");
+					}
+				} else {
+					message.channel.send("The message is not from this channel.");
+				}
+			} else {
+				message.channel.send("There is no message with that ID.");
+
+			}
+		} else {
+			message.channel.send(contestEmbed);
+		}
+
 	}
 };
