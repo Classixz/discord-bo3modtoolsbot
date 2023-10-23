@@ -228,12 +228,12 @@ class Bot {
 		const isHelpChannel =
 			message.channelId == process.env.VERIFICATION_HELP_CHANNEL;
 
-		const isVerified = message.member.roles.cache.has(
+		const isMemberVerified = message.member.roles.cache.has(
 			process.env.VERIFIED_ROLE
 		);
 
 		// To save some time, lets quickly verify any non verified member we might have missed if they type.
-		if (isHelpChannel && !isVerified) {
+		if (isHelpChannel && !isMemberVerified) {
 			isVerified(message.member);
 		}
 
